@@ -1,0 +1,28 @@
+<Window x:Class="VupisjkaWpf.Windows.KeywordWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ключевые слова" Height="220" Width="400">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Укажите до трёх ключевых слов (КАПСОМ), по которым формировать выписку."
+                       TextWrapping="Wrap" Margin="0,0,0,6"/>
+            <TextBox x:Name="Word1Box" Margin="0,0,0,4"/>
+            <TextBox x:Name="Word2Box" Margin="0,0,0,4"/>
+            <TextBox x:Name="Word3Box" Margin="0,0,0,4"/>
+
+            <CheckBox x:Name="CaseSensitiveBox" Content="Точное совпадение регистра" Margin="0,4,0,0"/>
+            <TextBlock Text="Нахождение по ключевым словам не гарантировано."
+                       FontSize="10" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="OK" Width="80" Margin="0,0,6,0" Click="Ok_Click"/>
+            <Button Content="Отмена" Width="80" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,114 @@
+<Window x:Class="VupisjkaWpf.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Построитель выписок" Height="540" Width="920">
+    <Grid Background="{DynamicResource Bg}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="10">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <TextBlock Text="Тема:" Foreground="{DynamicResource Fg}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <ComboBox x:Name="ThemeCombo" Width="170" SelectionChanged="ThemeCombo_SelectionChanged">
+                    <ComboBoxItem Content="Светлая"/>
+                    <ComboBoxItem Content="Тёмная"/>
+                    <ComboBoxItem Content="Синяя матрица"/>
+                    <ComboBoxItem Content="Чёрно-зелёная"/>
+                </ComboBox>
+            </StackPanel>
+            <Button Content="Справка" DockPanel.Dock="Right" Click="Help_Click" Margin="10,0,0,0"/>
+        </DockPanel>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                <TextBlock Text="1. Таблица с ФИО и личными номерами:" Foreground="{DynamicResource Fg}" Margin="0,0,0,2"/>
+                <DockPanel Margin="0,0,0,6">
+                    <TextBox x:Name="TablePathBox" MinWidth="420"/>
+                    <Button Content="Обзор..." Margin="5,0,0,0" Click="PickTable_Click"/>
+                </DockPanel>
+
+                <TextBlock Text="2. Папка с приказами (.docx):" Foreground="{DynamicResource Fg}" Margin="0,4,0,2"/>
+                <DockPanel Margin="0,0,0,6">
+                    <TextBox x:Name="OrdersFolderBox" MinWidth="420"/>
+                    <Button Content="Обзор..." Margin="5,0,0,0" Click="PickOrders_Click"/>
+                </DockPanel>
+
+                <TextBlock Text="3. Папка для сохранения выписок:" Foreground="{DynamicResource Fg}" Margin="0,4,0,2"/>
+                <DockPanel Margin="0,0,0,6">
+                    <TextBox x:Name="SaveFolderBox" MinWidth="420"/>
+                    <Button Content="Обзор..." Margin="5,0,0,0" Click="PickSave_Click"/>
+                    <Button Content="Открыть" Margin="5,0,0,0" Click="OpenSaveFolder_Click"/>
+                </DockPanel>
+
+                <GroupBox Header="Заверитель выписки" Margin="0,10,0,0" Foreground="{DynamicResource Fg}">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Должность (для 'ВЕРНО: ...')" Foreground="{DynamicResource Fg}"/>
+                        <TextBox x:Name="ApproverPositionBox" Margin="0,2,0,6"/>
+
+                        <TextBlock Text="Звание" Foreground="{DynamicResource Fg}"/>
+                        <TextBox x:Name="ApproverRankBox" Margin="0,2,0,6"/>
+
+                        <TextBlock Text="И.Фамилия" Foreground="{DynamicResource Fg}"/>
+                        <TextBox x:Name="ApproverNameBox" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Режимы поиска" Margin="0,10,0,0" Foreground="{DynamicResource Fg}">
+                    <StackPanel Margin="5">
+                        <WrapPanel>
+                            <CheckBox x:Name="Mode200Box" Content="200 (ИСКЛЮЧИТЬ + в связи со смертью)" Margin="0,0,10,0" Foreground="{DynamicResource Fg}"/>
+                            <CheckBox x:Name="ModeEnlistBox" Content="Зачисление" Margin="0,0,10,0" Foreground="{DynamicResource Fg}"/>
+                            <CheckBox x:Name="ModeDispositionBox" Content="Зачисление в распоряжение" Margin="0,0,10,0" Foreground="{DynamicResource Fg}"/>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,4,0,0">
+                            <CheckBox x:Name="ModeAppointmentBox" Content="Назначение" Margin="0,0,10,0" Foreground="{DynamicResource Fg}"/>
+                            <CheckBox x:Name="ModeDismissedBox" Content="Увольнение" Margin="0,0,10,0" Foreground="{DynamicResource Fg}"/>
+                        </WrapPanel>
+                        <CheckBox x:Name="UseKeywordsBox" Content="По ключевым словам (точное совпадение)" Margin="0,6,0,0"
+                                  Foreground="{DynamicResource Fg}"
+                                  Checked="UseKeywords_Checked" Unchecked="UseKeywords_Unchecked"/>
+                        <TextBlock Text="Нахождение по ключевым словам не гарантировано."
+                                   Foreground="{DynamicResource Fg}" FontSize="10" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <GroupBox Header="Настройки" Foreground="{DynamicResource Fg}">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="SeparateDocsBox" Content="Каждому человеку отдельный файл" Foreground="{DynamicResource Fg}"/>
+                        <CheckBox x:Name="RecursiveBox" Content="Искать приказы во всех вложенных папках" Foreground="{DynamicResource Fg}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Дополнительно" Margin="0,10,0,0" Foreground="{DynamicResource Fg}">
+                    <StackPanel Margin="5">
+                        <Button Content="Расширенный поиск по содержанию (ФИО/личный номер)" Click="AdvancedSearch_Click" Margin="0,0,0,4"/>
+                        <Button Content="Настроить ключевые слова" Click="BtnKeywords_Click"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <TextBlock Text="Журнал работы:" Foreground="{DynamicResource Fg}" Margin="0,10,0,2"/>
+                <TextBox x:Name="LogBox"
+                         Height="230"
+                         IsReadOnly="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         Background="#22000000"
+                         Foreground="{DynamicResource Fg}"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <Button x:Name="RunButton" Content="Составить выписки" Height="36" Click="Run_Click" Width="200"/>
+        </StackPanel>
+    </Grid>
+</Window>

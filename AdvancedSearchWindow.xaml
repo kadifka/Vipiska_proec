@@ -1,0 +1,67 @@
+<Window x:Class="VupisjkaWpf.Windows.AdvancedSearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Расширенный поиск" Height="320" Width="460">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Форма расширенного поиска по содержанию пунктов приказа."
+                       TextWrapping="Wrap" Margin="0,0,0,8"/>
+            <TextBlock Text="Можно указать 1–4 полей. Чем больше полей, тем точнее поиск."
+                       TextWrapping="Wrap" FontSize="11" Margin="0,0,0,8"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,4">
+                    <TextBlock Text="Личный номер (X-000000 / XX-000000 / 000000):"/>
+                    <TextBox x:Name="PersonalBox" Margin="0,2,0,0"/>
+                </StackPanel>
+                <CheckBox x:Name="ReqPersonalBox" Grid.Row="0" Grid.Column="1"
+                          Content="Обязательное совпадение" Margin="6,18,0,0"/>
+
+                <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,4,0,4">
+                    <TextBlock Text="Фамилия (род. падеж):"/>
+                    <TextBox x:Name="LastNameBox" Margin="0,2,0,0"/>
+                </StackPanel>
+                <CheckBox x:Name="ReqLastNameBox" Grid.Row="1" Grid.Column="1"
+                          Content="Обязательное совпадение" Margin="6,24,0,0"/>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,4,0,4">
+                    <TextBlock Text="Имя (род. падеж):"/>
+                    <TextBox x:Name="FirstNameBox" Margin="0,2,0,0"/>
+                </StackPanel>
+                <CheckBox x:Name="ReqFirstNameBox" Grid.Row="2" Grid.Column="1"
+                          Content="Обязательное совпадение" Margin="6,24,0,0"/>
+
+                <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,4,0,4">
+                    <TextBlock Text="Отчество (род. падеж):"/>
+                    <TextBox x:Name="MiddleNameBox" Margin="0,2,0,0"/>
+                </StackPanel>
+                <CheckBox x:Name="ReqMiddleNameBox" Grid.Row="3" Grid.Column="1"
+                          Content="Обязательное совпадение" Margin="6,24,0,0"/>
+            </Grid>
+
+            <TextBlock Text="Обязательно заполните хотя бы одно поле. Можно указывать любое сочетание полей."
+                       Margin="0,8,0,0" FontSize="11" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="OK" Width="80" Margin="0,0,6,0" Click="Ok_Click"/>
+            <Button Content="Отмена" Width="80" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
