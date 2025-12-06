@@ -1,0 +1,31 @@
+name: Build Vupisjka EXE
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore
+        run: dotnet restore VupisjkaWpf.csproj
+
+      - name: Publish Release (win-x86)
+        run: dotnet publish VupisjkaWpf.csproj -c Release -r win-x86 -o publish_release --self-contained false
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Vupisjka_release_win-x86
+          path: publish_release/**
